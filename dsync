@@ -1,0 +1,154 @@
+#!/bin/bash
+
+#This scripts syncs my local directories to google drive.
+#The argument specifies which directory is to be synced.
+#Arguments:
+#schem ---> sync Schematici
+#mat ---> sync Materiale
+#etc.
+
+n_args=$#
+
+if [ $n_args -lt 1 ]
+then
+	echo "Error. Missing argument."
+	exit
+fi
+
+
+
+arg=$1
+
+
+
+case $arg in
+
+
+	-h|--help)
+	echo
+	echo "Sync automatically a given directory in google drive."
+	echo
+	echo "-h, --help				Print this help message and exit."
+	echo "-d, --download <remote_name> <local_path>	Sync download."
+	echo "-u, --upload <remote_name> <local_path>	Sync upload."
+	echo
+	;;
+
+
+	-u|--upload)
+	if [ $n_args -ne 2 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi	
+	dir=$2
+	case $dir in
+
+		schem)
+		info=$(gdrive list --query "name='Schematici' and trashed=false" | grep " Schematici ")
+		dirID=${info:0:33}
+		gdrive sync upload /home/spino/PhD/Schematici $dirID
+		;;
+
+		mat)
+		info=$(gdrive list --query "name='Materiale' and trashed=false" | grep " Materiale ")
+                dirID=${info:0:33}
+                gdrive sync upload /home/spino/PhD/Materiale $dirID
+		;;
+
+		csv)
+		info=$(gdrive list --query "name='CSV' and trashed=false" | grep " CSV ")
+		dirID=${info:0:33}
+		gdrive sync upload /home/spino/PhD/CSV $dirID
+		;;
+
+		lav)
+		info=$(gdrive list --query "name='Lavori' and trashed=false" | grep " Lavori ")
+		dirID=${info:0:33}
+		gdrive sync upload /home/spino/PhD/Lavori $dirID
+		;;
+
+		*)
+		echo "Error. Invalid argument."
+		exit
+		;;
+	esac
+	;;
+
+
+	-d|--download)
+	if [ $n_args -ne 2 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi	
+	dir=$2
+	case $dir in
+
+		schem)
+		info=$(gdrive list --query "name='Schematici' and trashed=false" | grep " Schematici ")
+		dirID=${info:0:33}
+		gdrive sync download $dirID /home/spino/PhD/Schematici
+		;;
+
+		mat)
+		info=$(gdrive list --query "name='Materiale' and trashed=false" | grep " Materiale ")
+	        dirID=${info:0:33}
+                gdrive sync download $dirID /home/spino/PhD/Materiale
+		;;
+
+		csv)
+		info=$(gdrive list --query "name='CSV' and trashed=false" | grep " CSV ")
+		dirID=${info:0:33}
+		gdrive sync download $dirID /home/spino/PhD/CSV
+		;;
+
+		lav)
+		info=$(gdrive list --query "name='Lavori' and trashed=false" | grep " Lavori ")
+		dirID=${info:0:33}
+		gdrive sync download $dirID /home/spino/PhD/Lavori
+		;;
+
+		*)
+		echo "Error. Invalid argument."
+		exit
+		;;
+	esac
+	;;
+
+
+	-un|--uploadname)
+	if [ $n_args -ne 3 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi
+	remote_name=$2
+	local_name=$3
+	info=$(gdrive list --query "name='$remote_name' and trashed=false" | grep " $remote_name ")
+	dirID=${info:0:33}
+	gdrive sync upload $local_name $dirID
+	;;
+
+
+	-dn|--downloadname)
+	if [ $n_args -ne 3 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi
+	remote_name=$2
+	local_name=$3
+	info=$(gdrive list --query "name='$remote_name' and trashed=false" | grep " $remote_name " )
+	dirID=${info:0:33}
+	gdrive sync download $dirID $local_name
+	;;
+
+
+	*)
+	echo "Error. Invalid argument."
+	exit
+	;;
+
+
+esac

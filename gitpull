@@ -1,0 +1,46 @@
+#!/bin/bash
+
+
+if [ $# -lt 1 ]
+then
+        echo "Error. Missing argument."
+        exit
+fi
+
+
+arg=$1
+
+
+case $arg in
+	
+
+	-h|--help)
+	echo
+	echo "This script automatically pulls a branch from remote" 
+	echo
+	echo "-h, --help		Print this help message and exit."
+	echo "-b, --branch <arg>	Pull the <arg> branch."
+	echo
+	;;
+
+
+	-b|--branch)
+	if [ $# -ne 2 ]
+	then
+	        echo "Error. Wrong number of arguments."
+	        exit
+	fi
+	branch_name=$2
+	file=`cat /usr/local/bin/token.txt`
+	token=${file:0:43}
+	expect /usr/local/bin/gitpull_and_answer.exp $branch_name $token
+	;;
+	
+
+	*)
+	echo "Error. Invalid argument."
+	exit
+	;;
+
+
+esac
