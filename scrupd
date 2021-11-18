@@ -23,6 +23,7 @@ case $arg in
 
 	-a|--update-all)
 	scripts=`ls /home/spino/MyCode/Scripts`
+	cd /home/spino/MyCode/Scripts
 	sudo install $scripts /usr/local/bin && echo "The scripts were successfully updated." || echo "Update failed."
 	;;
 

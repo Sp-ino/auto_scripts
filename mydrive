@@ -31,7 +31,7 @@ case $arg in
 
 
 	-d|--download)
-	if [ $n_arg -ne 2 ]
+	if [ $n_args -ne 2 ]
 	then
 		echo "Error. Wrong number of arguments."
 		exit
@@ -42,7 +42,7 @@ case $arg in
 
 
 	-u|--upload)
-	if [ $n_arg -ne 3 ]
+	if [ $n_args -ne 3 ]
 	then
 		echo "Error. Wrong number of arguments."
 		exit
