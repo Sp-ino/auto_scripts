@@ -12,12 +12,16 @@ arg=$1
 
 case $arg in
 	
-	"-h")
+	-h|--help)
+	echo
 	echo "This script automatically pushes a local branch into a remote repo."
 	echo "The repo must be previuosly selected by using git add origin *link*." 
+	echo
+	echo "-h, --help	Print this help message and exit."
+	echo "-b, --branch <arg>	Push the branch <arg>."
 	;;
 
-	"-b")
+	-b|--branch)
 	if [ $# -ne 2 ]
 	then
 	        echo "Error. Wrong number of arguments."
