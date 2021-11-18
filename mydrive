@@ -19,14 +19,17 @@ arg=$1
 case $arg in
 
 
-        -h|--help)
-        echo
-        echo "Sync automatically a given directory in google drive."
-        echo
-        echo "-h, --help 		Print this help message and exit."
-        echo "-d, --download <name>	Download <arg>."
-        echo "-u, --upload <name> <dir>	Upload <arg> into <dir>."
-        echo
+	-h|--help)
+	echo
+	echo "Sync automatically a given directory in google drive."
+	echo
+	echo "-h, --help 						Print this help message and exit."
+	echo "-d, --download <remote_name>				Download <remote_name>."
+	echo "-u, --upload <local_name> <remote_folder>			Upload <local_name> into <remote_folder>."
+	echo "-fu, --folderupdate <local_folder> <remote_folder>	Update the content of <remote_folder> by uploading/updating from <local_folder>."
+	echo "-fd, --folderdownload <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder>. Files with the same name are not downloaded."
+	echo "-fo, --folderoverwrite <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder> and overwrite files with the same names."
+	echo
 	;;
 
 
@@ -52,6 +55,33 @@ case $arg in
 	info=$(gdrive list --query "name='$remote_dir' and trashed=false" | grep " $remote_dir ")
 	remote_dir_ID=${info:0:33}
 	gdrive upload -p $remote_dir_ID $file_name	
+	;;
+
+
+	-fu|--folderupdate)
+	if [ $n_args -ne 3 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi
+	;;
+
+
+	-fd|folderdownload)
+	if [ $n_args -ne 3 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi
+	;;
+
+
+	-fo|--folderoverwrite)
+	if [ $n_args -ne 3 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi
 	;;
 
 
