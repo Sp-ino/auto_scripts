@@ -42,6 +42,7 @@ if {$force_conservative} {
 # -Don
 
 set branch_name [lindex $argv 0];
+set pw [lindex $argv 1];
 
 set timeout -1
 spawn git push origin $branch_name
@@ -50,5 +51,5 @@ expect -exact "Username for 'https://github.com': "
 send -- "sp-ino\r"
 expect -exact "sp-ino\r
 Password for 'https://sp-ino@github.com': "
-send -- "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\r"
+send -- $pw
 expect eof
