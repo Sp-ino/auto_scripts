@@ -43,7 +43,6 @@ if {$force_conservative} {
 
 set branch_name [lindex $argv 0];
 set pw [lindex $argv 1];
-puts $pw
 
 set timeout -1
 spawn git push origin $branch_name
