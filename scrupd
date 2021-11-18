@@ -22,7 +22,8 @@ case $arg in
 	;;
 
 	-a|--update-all)
-	sudo install /home/valerio/MyCode/Scripts/* /usr/local/bin
+	scripts=`ls /home/spino/MyCode/Scripts`
+	sudo install $scripts /usr/local/bin && echo "The scripts were successfully updated." || echo "Update failed."
 	;;
 
 	-s|--script)
@@ -31,7 +32,7 @@ case $arg in
 		echo "Error. Missing argument."
 	fi
 	script_name=$2
-	sudo install /home/valerio/MyCode/Scripts/"$script_name"
+	sudo install /home/spino/MyCode/Scripts/"$script_name" /usr/local/bin && echo "$script_name was successfully updated." || echo "Update failed."
 	;;
 
 esac
