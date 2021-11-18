@@ -1,0 +1,58 @@
+#!/bin/bash
+
+
+n_args=$#
+
+
+if [ $n_args -lt 1 ]
+then
+        echo "Error. Missing argument."
+        exit
+fi
+
+
+
+arg=$1
+
+
+
+case $arg in
+
+
+        -h|--help)
+        echo
+        echo "Sync automatically a given directory in google drive."
+        echo
+        echo "-h, --help 		Print this help message and exit."
+        echo "-d, --download <name>	Download <arg>."
+        echo "-u, --upload <name> <dir>	Upload <arg> into <dir>."
+        echo
+	;;
+
+
+	-d|--download)
+	if [ $n_arg -ne 2 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi
+	file_name=$2
+	gdrive download query "name='$file_name'"	
+	;;
+
+
+	-u|--upload)
+	if [ $n_arg -ne 3 ]
+	then
+		echo "Error. Wrong number of arguments."
+		exit
+	fi
+	file_name=$2
+	remote_dir=$3
+	info=$(gdrive list --query "name='$remote_dir' and trashed=false" | grep " $remote_dir ")
+	remote_dir_ID=${info:0:33}
+	gdrive upload -p $remote_dir_ID $file_name	
+	;;
+
+
+esac
