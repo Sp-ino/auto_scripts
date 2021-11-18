@@ -51,5 +51,5 @@ expect -exact "Username for 'https://github.com': "
 send -- "sp-ino\r"
 expect -exact "sp-ino\r
 Password for 'https://sp-ino@github.com': "
-send -- $pw
+send -- "$pw\r
 expect eof
