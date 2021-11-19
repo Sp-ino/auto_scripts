@@ -27,43 +27,61 @@ case $arg in
 	echo "-d, --download <remote_name>				Download <remote_name>."
 	echo "-u, --upload <local_name> <remote_folder>			Upload <local_name> into <remote_folder>."
 	echo "-fu, --folderupdate <local_folder> <remote_folder>	Update the content of <remote_folder> by uploading/updating from <local_folder>."
-	echo "-fd, --folderdownload <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder>. Files with the same name are not downloaded."
-	echo "-fo, --folderoverwrite <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder> and overwrite files with the same names."
+	echo "-fd, --folderdownload <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder>. Files that already exist locally are not downloaded."
+	echo "-fo, --folderoverwrite <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder> and overwrite files that already exist locally."
 	echo
 	;;
 
 
 	-d|--download)
-	if [ $n_args -ne 2 ]
+	if [ "$n_args" -ne 2 ]
 	then
 		echo "Error. Wrong number of arguments."
 		exit
 	fi
-	file_name=$2
+	file_name="$2"
 	gdrive download query "name='$file_name'"	
 	;;
 
 
 	-u|--upload)
-	if [ $n_args -ne 3 ]
+	if [ "$n_args" -ne 3 ]
 	then
 		echo "Error. Wrong number of arguments."
 		exit
 	fi
-	file_name=$2
-	remote_dir=$3
-	info=$(gdrive list --query "name='$remote_dir' and trashed=false" | grep " $remote_dir ")
-	remote_dir_ID=${info:0:33}
-	gdrive upload -p $remote_dir_ID $file_name	
+	file_name="$2"
+	remote_folder="$3"
+	info=$(gdrive list --query "name='$remote_folder' and trashed=false" | grep " $remote_folder ")
+	remote_folder_ID="${info:0:33}"
+	gdrive upload -p "$remote_folder_ID" "$file_name"	
 	;;
 
 
 	-fu|--folderupdate)
-	if [ $n_args -ne 3 ]
+	if [ "$n_args" -ne 3 ]
 	then
 		echo "Error. Wrong number of arguments."
 		exit
 	fi
+	local_folder=$2
+	remote_folder=$3
+	info=$(gdrive list --query "name='$remote_folder' and trashed=false" | grep " $remote_folder ")
+	remote_folder_ID=${info:0:33}
+	cd $local_folder
+	files=`ls`
+	for file_name in $files
+	do
+		info=$(gdrive list --query "name='$file_name' and trashed=false and '$remote_folder_ID' in parents" | grep " $file_name ")
+		file_ID=${info:0:33}
+		if [ -z $file_ID ]
+		then
+			gdrive upload -p $remote_folder_ID $file_name
+		else
+			gdrive delete $file_ID
+			gdrive upload -p $remote_folder_ID $file_name
+		fi
+	done
 	;;
 
 
@@ -73,6 +91,42 @@ case $arg in
 		echo "Error. Wrong number of arguments."
 		exit
 	fi
+	remote_folder=$2
+	local_folder=$3
+	info=$(gdrive list --query "name='$remote_folder' and trashed=false" | grep " $remote_folder ")
+	remote_folder_ID=${info:0:33}
+	remote_content="$(gdrive list --query "trashed=false and '$remote_folder_ID' in parents")"
+	SAVEIFS=$IFS
+	IFS=$'\n'
+	remote_content_array=($remote_content)
+	IFS=$SAVEIFS
+	cd $local_folder
+	local_content=`ls`
+	for((scan=0; scan<${#remote_content_array[@]}; scan++))
+	do
+		if [ $scan -ne 0 ]
+		then
+			exist_flag=false
+			line=${remote_content_array[$scan]}
+			line_array=($line)
+			file_ID=${line_array[0]}
+			file_name=${line_array[1]}
+			echo "$file_ID $file_name"
+			for local_name in $local_content
+			do
+				if [ $local_name = $file_name ]
+				then
+					exist_flag=true
+				fi
+			done
+			if [ $exist_flag = false ]
+			then
+				gdrive download $file_ID
+			else
+				echo "File already existing, use -fo option to overwrite existing files."
+			fi
+		fi
+	done	
 	;;
 
 
@@ -82,6 +136,12 @@ case $arg in
 		echo "Error. Wrong number of arguments."
 		exit
 	fi
+	remote_folder=$2
+	local_folder=$3
+	info=$(gdrive list --query "name='$remote_folder' and trashed=false" | grep " $remote_folder ")
+	remote_folder_ID=${info:0:33}
+	cd $local_folder
+	gdrive download query -f "'$remote_folder_ID' in parents"
 	;;
 
 
