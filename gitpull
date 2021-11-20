@@ -14,9 +14,12 @@ arg=$1
 case $arg in
 	
 
-	-h|--help)
+	-h|--help)							#help option
 	echo
-	echo "This script automatically pulls a branch from remote" 
+	echo "This script automatically pulls a branch from remote"
+	echo
+	echo "Usage:"
+	echo "gitpull <option> <argument>" 
 	echo
 	echo "-h, --help		Print this help message and exit."
 	echo "-b, --branch <arg>	Pull the <arg> branch."
@@ -24,7 +27,7 @@ case $arg in
 	;;
 
 
-	-b|--branch)
+	-b|--branch)							#branch option
 	if [ $# -ne 2 ]
 	then
 	        echo "Error. Wrong number of arguments."
@@ -32,13 +35,20 @@ case $arg in
 	fi
 	branch_name=$2
 	file=`cat /usr/local/bin/token.txt`
-	token=${file:0:43}
-	expect /usr/local/bin/gitpull_and_answer.exp $branch_name $token
+	token=${file:0:43}							#get token fromt textfile
+	expect /usr/local/bin/gitpull_and_answer.exp $branch_name $token	#call expect scripts that uses git pull to pull a branch from remote
 	;;
 	
 
-	*)
+	*)								#default case
 	echo "Error. Invalid argument."
+	echo
+	echo "Usage:"
+	echo "gitpull <option> <argument>" 
+	echo
+	echo "-h, --help		Print this help message and exit."
+	echo "-b, --branch <arg>	Pull the <arg> branch."
+	echo
 	exit
 	;;
 
