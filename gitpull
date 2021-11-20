@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if [ $# -lt 1 ]
+if [ $# -lt 1 ]								#Check number of arguments
 then
         echo "Error. Missing argument."
         exit
@@ -34,9 +34,7 @@ case $arg in
 	        exit
 	fi
 	branch_name=$2
-	file=`cat /usr/local/bin/token.txt`
-	token=${file:0:43}							#get token fromt textfile
-	expect /usr/local/bin/gitpull_and_answer.exp $branch_name $token	#call expect scripts that uses git pull to pull a branch from remote
+	git pull origin $branch_name					#call expect scripts that uses git pull to pull a branch from remote
 	;;
 	
 
