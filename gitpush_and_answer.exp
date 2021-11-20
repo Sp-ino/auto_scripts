@@ -41,15 +41,15 @@ if {$force_conservative} {
 #
 # -Don
 
-set branch_name [lindex $argv 0];
+set branch_name [lindex $argv 0];		#arguments: branch name and token
 set pw [lindex $argv 1];
 
 set timeout -1
-spawn git push origin $branch_name
+spawn git push origin $branch_name		#use git push origin to push the branch to the remote repo
 match_max 100000
 expect -exact "Username for 'https://github.com': "
-send -- "sp-ino\r"
+send -- "sp-ino\r"				#send username
 expect -exact "sp-ino\r
 Password for 'https://sp-ino@github.com': "
-send -- "$pw\r"
+send -- "$pw\r"					#send token
 expect eof
