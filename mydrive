@@ -19,7 +19,7 @@ arg=$1
 case $arg in
 
 
-	-h|--help)	#help option
+	-h|--help)											#help option
 	echo
 	echo "Sync automatically a given directory in google drive."
 	echo "Usage:"
