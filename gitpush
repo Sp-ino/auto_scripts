@@ -10,18 +10,24 @@ fi
 
 arg=$1
 
+
+
 case $arg in
+
 	
-	-h|--help)
+	-h|--help)									#help option
 	echo
 	echo "This script automatically pushes a local branch into a remote repo."
 	echo "The repo must be previuosly selected by using git add origin *link*." 
+	echo
+	echo "Usage:"
+	echo "gitpush <option> <argument>"
 	echo
 	echo "-h, --help	Print this help message and exit."
 	echo "-b, --branch <arg>	Push the branch <arg>."
 	;;
 
-	-b|--branch)
+	-b|--branch)									#branch option
 	if [ $# -ne 2 ]
 	then
 	        echo "Error. Wrong number of arguments."
@@ -29,13 +35,21 @@ case $arg in
 	fi
 	branch_name=$2
 	file=`cat /usr/local/bin/token.txt`
-	token=${file:0:43}
-	expect /usr/local/bin/gitpush_and_answer.exp $branch_name $token
+	token=${file:0:43}								#extract token from file
+	expect /usr/local/bin/gitpush_and_answer.exp $branch_name $token		#call expect script by passing branch name and token to it.
+											#The expect script calls git push -b <branchname> and then passes user name and token when prompted
 	;;
+
 	
-	*)
+	*)										#default case
 	echo "Error. Invalid argument."
+	echo "Usage:"
+	echo "gitpush <option> <argument>"
+	echo
+	echo "-h, --help	Print this help message and exit."
+	echo "-b, --branch <arg>	Push the branch <arg>."
 	exit
 	;;
+
 
 esac
