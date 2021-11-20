@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #This scripts syncs my local directories to google drive.
 #The argument specifies which directory is to be synced.
 #Arguments:
@@ -9,13 +8,11 @@
 
 n_args=$#
 
-if [ $n_args -lt 1 ]
+if [ $n_args -lt 1 ]				#check number of arguments
 then
 	echo "Error. Missing argument."
 	exit
 fi
-
-
 
 arg=$1
 
@@ -24,18 +21,23 @@ arg=$1
 case $arg in
 
 
-	-h|--help)
+	-h|--help)				#help option
 	echo
 	echo "Sync automatically a given directory in google drive."
 	echo
-	echo "-h, --help				Print this help message and exit."
-	echo "-d, --download <remote_name> <local_path>	Sync download."
-	echo "-u, --upload <remote_name> <local_path>	Sync upload."
+	echo "Usage:"
+	echo "dsync <option> <arguments>"
+	echo
+	echo "-h, --help					Print this help message and exit."
+	echo "-d, --download <local_path>			Sync download by specifying short name which identifies remote and local dir."
+	echo "-u, --upload <local_path>				Sync upload by specifying short name which identifies remote and local dir."
+	echo "-dn, --downloadname <remote_name> <local_path>	Sync download by specifying local and remote dir separately."
+	echo "-un, --uploadname <remote_name> <local_path>	Sync upload by specifying local and remote dir separately."
 	echo
 	;;
 
 
-	-u|--upload)
+	-u|--upload)				#upload option
 	if [ $n_args -ne 2 ]
 	then
 		echo "Error. Wrong number of arguments."
@@ -76,7 +78,7 @@ case $arg in
 	;;
 
 
-	-d|--download)
+	-d|--download)					#download option
 	if [ $n_args -ne 2 ]
 	then
 		echo "Error. Wrong number of arguments."
@@ -117,7 +119,7 @@ case $arg in
 	;;
 
 
-	-un|--uploadname)
+	-un|--uploadname)					#upload name
 	if [ $n_args -ne 3 ]
 	then
 		echo "Error. Wrong number of arguments."
@@ -131,7 +133,7 @@ case $arg in
 	;;
 
 
-	-dn|--downloadname)
+	-dn|--downloadname)					#downloadname
 	if [ $n_args -ne 3 ]
 	then
 		echo "Error. Wrong number of arguments."
@@ -146,8 +148,9 @@ case $arg in
 
 
 	*)
+	echo
 	echo "Error. Invalid argument."
-	exit
+	echo
 	;;
 
 
