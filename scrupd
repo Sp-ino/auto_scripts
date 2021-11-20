@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]
+if [ $# -lt 1 ]											#check number of arguments
 then
 	echo "Error. Wrong number of arguments."
 	exit
@@ -9,25 +9,33 @@ fi
 
 arg=$1
 
+
+
 case $arg in
 
-	-h|--help)
+
+	-h|--help)										#help option
 	echo
 	echo "This script updates my bash scripts."
 	echo
-	echo "-h --help Print this help message and exit."
-	echo "-a --update-all Update all the scripts."
-	echo "-s --script <argument> Update only <argument>."
+	echo "Usage:"
+	echo "scrupd <option> <argument>"
+	echo
+	echo "-h --help 			Print this help message and exit."
+	echo "-a --update-all 			Update all the scripts."
+	echo "-s --script <argument> 		Update only <argument>."
 	echo
 	;;
 
-	-a|--update-all)
+
+	-a|--update-all)									#update all option
 	scripts=`ls /home/spino/MyCode/Scripts`
 	cd /home/spino/MyCode/Scripts
 	sudo install $scripts /usr/local/bin && echo "The scripts were successfully updated." || echo "Update failed."
 	;;
 
-	-s|--script)
+
+	-s|--script)										#update script option
 	if [ $# -ne 2 ]
 	then
 		echo "Error. Missing argument."
@@ -35,5 +43,19 @@ case $arg in
 	script_name=$2
 	sudo install /home/spino/MyCode/Scripts/"$script_name" /usr/local/bin && echo "$script_name was successfully updated." || echo "Update failed."
 	;;
+
+	
+	*)
+	echo "Error. Invalid option."
+	echo
+	echo "Usage:"
+	echo "scrupd <option> <argument>"
+	echo
+	echo "-h --help 			Print this help message and exit."
+	echo "-a --update-all 			Update all the scripts."
+	echo "-s --script <argument> 		Update only <argument>."
+	echo
+	;;
+
 
 esac
