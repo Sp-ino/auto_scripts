@@ -34,7 +34,9 @@ case $arg in
 	        exit
 	fi
 	branch_name=$2
-	git pull origin $branch_name					#call expect scripts that uses git pull to pull a branch from remote
+	file_content=`cat /usr/local/bin/token.txt`
+	token=${file_content:0:40}
+	expect gitpull_and_answer.exp $branch_name $token		#call expect scripts that uses git pull to pull a branch from remote
 	;;
 	
 
