@@ -44,7 +44,7 @@ case $arg in
 	fi
 	branch_name=$2
 	file_content=(`cat /home/spino/.mygitconfig`)
-	token=${file[0]}
+	token=${file_content[0]}
 	expect /usr/local/bin/gitpull_and_answer.exp $branch_name $token		#call expect scripts that uses git pull to pull a branch from remote
 	;;
 

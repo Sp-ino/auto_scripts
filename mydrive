@@ -34,7 +34,7 @@ case $arg in
 	echo
 	echo "-h, --help 						Print this help message and exit."
 	echo "-d, --download <remote_name>				Download <remote_name>."
-	echo "-u, --upload <local_name> <remote_folder>			Upload <local_name> into <remote_folder>."
+	echo "-u, --upload <local_name> <remote_folder>		Upload <local_name> into <remote_folder>."
 	echo "-fu, --folderupdate <local_folder> <remote_folder>	Update the content of <remote_folder> by uploading/updating from <local_folder>."
 	echo "-fd, --folderdownload <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder>. Files that already exist locally are not downloaded."
 	echo "-fo, --folderoverwrite <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder> and overwrite files that already exist locally."

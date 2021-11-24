@@ -29,8 +29,8 @@ case $arg in
 
 
 	-a|--update-all)									#update all option
-	scripts=`ls /home/spino/MyCode/Scripts`
-	cd /home/spino/MyCode/Scripts
+	scripts=`ls /home/spino/MyCode/Bash`
+	cd /home/spino/MyCode/Bash
 	sudo install $scripts /usr/local/bin && echo "The scripts were successfully updated." || echo "Update failed."
 	;;
 
@@ -41,10 +41,10 @@ case $arg in
 		echo "Error. Missing argument."
 	fi
 	script_name=$2
-	sudo install /home/spino/MyCode/Scripts/"$script_name" /usr/local/bin && echo "$script_name was successfully updated." || echo "Update failed."
+	sudo install /home/spino/MyCode/Bash/"$script_name" /usr/local/bin && echo "$script_name was successfully updated." || echo "Update failed."
 	;;
 
-	
+
 	*)
 	echo "Error. Invalid option."
 	echo

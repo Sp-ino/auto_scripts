@@ -43,7 +43,7 @@ case $arg in
 	fi
 	url=$2
 	file_content=(`cat /home/spino/.mygitconfig`)
-	token=${file[0]}
+	token=${file_content[0]}
 	expect /usr/local/bin/gitclone_and_answer.exp $url $token			#call expect scripts that uses git pull to pull a branch from remote
 	;;
 
