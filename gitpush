@@ -1,5 +1,12 @@
 #!/bin/bash
 
+################################################################################
+#
+#Author: spino
+#
+#This script automatically pushes a local branch into a github remote repo.
+#
+################################################################################
 
 if [ $# -lt 1 ]
 then
@@ -14,7 +21,7 @@ arg=$1
 
 case $arg in
 
-	
+
 	-h|--help)									#help option
 	echo
 	echo "This script automatically pushes a local branch into a remote repo."
@@ -34,13 +41,13 @@ case $arg in
 	        exit
 	fi
 	branch_name=$2
-	file=`cat /usr/local/bin/token.txt`
-	token=${file:0:43}								#extract token from file
+	file=(`cat /home/spino/.mygitconfig`)
+	token=${file[0]}								#extract token from file
 	expect /usr/local/bin/gitpush_and_answer.exp $branch_name $token		#call expect script by passing branch name and token to it.
 											#The expect script calls git push -b <branchname> and then passes user name and token when prompted
 	;;
 
-	
+
 	*)										#default case
 	echo "Error. Invalid argument."
 	echo "Usage:"

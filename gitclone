@@ -1,5 +1,13 @@
 #!/bin/bash
 
+###################################################################
+#
+#Author: spino
+#
+#This script automatically clones a github remote repo
+#
+###################################################################
+
 
 if [ $# -lt 1 ]								#Check number of arguments
 then
@@ -12,14 +20,14 @@ arg=$1
 
 
 case $arg in
-	
+
 
 	-h|--help)							#help option
 	echo
 	echo "This script automatically clones a repository from remote"
 	echo
 	echo "Usage:"
-	echo "gitpull <option> <argument>" 
+	echo "gitclone <option> <argument>"
 	echo
 	echo "-h, --help		Print this help message and exit."
 	echo "-u, --url <arg>		Clone the repo specified by <arg>"
@@ -27,27 +35,27 @@ case $arg in
 	;;
 
 
-	-b|--branch)							#branch option
+	-u|--url)							#branch option
 	if [ $# -ne 2 ]
 	then
 	        echo "Error. Wrong number of arguments."
 	        exit
 	fi
-	branch_name=$2
-	file_content=`cat /usr/local/bin/token.txt`
-	token=${file_content:0:40}
-	expect gitclone_and_answer.exp $branch_name $token		#call expect scripts that uses git pull to pull a branch from remote
+	url=$2
+	file_content=(`cat /home/spino/.mygitconfig`)
+	token=${file[0]}
+	expect /usr/local/bin/gitclone_and_answer.exp $url $token			#call expect scripts that uses git pull to pull a branch from remote
 	;;
-	
+
 
 	*)								#default case
 	echo "Error. Invalid argument."
 	echo
 	echo "Usage:"
-	echo "gitpull <option> <argument>" 
+	echo "gitclone <option> <argument>"
 	echo
 	echo "-h, --help		Print this help message and exit."
-	echo "-b, --branch <arg>	Pull the <arg> branch."
+	echo "-u, --url <arg>		Clone the repo specified by <arg>"
 	echo
 	exit
 	;;
