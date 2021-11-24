@@ -1,5 +1,12 @@
 #!/bin/bash
 
+################################################################
+#Author: spino
+#
+#this script represents a simplified interface for using gdrive.
+#It allows to upload and download files without having to search
+#for file or folder IDs.
+################################################################
 
 n_args=$#
 
@@ -109,7 +116,7 @@ case $arg in
 		if [ $scan -ne 0 ]									#skip the first element
 		then
 			exist_flag=false								#exist_flag is used to memorize whether a file already exists in the remote folder
-			line=${remote_content_array[$scan]}						
+			line=${remote_content_array[$scan]}
 			line_array=($line)								#extract remote file ID from remote_content_array
 			file_ID=${line_array[0]}							#extract name of the remote file from remote_content_array
 			file_name=${line_array[1]}
@@ -127,7 +134,7 @@ case $arg in
 				echo "File already existing, use -fo option to overwrite existing files."	#otherwise print a warning message and do not download
 			fi
 		fi
-	done	
+	done
 	;;
 
 
