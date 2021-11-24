@@ -28,7 +28,7 @@ case $arg in
 
 	-h|--help)											#help option
 	echo
-	echo "Sync automatically a given directory in google drive."
+	echo "Upload or download automatically files to/from google drive."
 	echo "Usage:"
 	echo "mydrive <option> <arguments>"
 	echo
