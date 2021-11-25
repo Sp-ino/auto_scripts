@@ -1,0 +1,40 @@
+#!/bin/bash
+
+##################################################################
+#
+#Author: spino
+#
+#This script udpdates the chipwhisperer when scripts inside the
+#working directory (my_chipwhisperer_sw) are modified.
+#
+##################################################################
+
+
+bckp_path="/home/spino/.cwbackup/"				#backup path
+pkg_path="/home/spino/.local/lib/python3.9/site-packages/"	#cw package path
+mycw_path="/home/spino/PhD/MISE/"				#working directory path
+
+
+content=`ls "$bckp_path" | grep cw_sw_backup`
+
+if [ -z $content ]
+then
+	echo "No backup existing. Creating one..."
+	cp -r ""$pkg_path"chipwhisperer" "$bckp_path"
+	mv ""$bckp_path"chipwhisperer" ""$bckp_path"cw_sw_backup"
+else
+	echo "Overwriting old backup..."
+	echo  ""$bckp_path"cw_sw_backup"
+	rm -r ""$bckp_path"cw_sw_backup"
+	cp -r ""$pkg_path"chipwhisperer" "$bckp_path"
+	mv ""$bckp_path"chipwhisperer" ""$bckp_path"cw_sw_backup"
+fi
+
+echo "Created backup at $bckp_path"
+echo
+
+echo "Removing old chipwhisperer package..."
+rm -r ""$pkg_path"chipwhisperer" && echo "Removed."
+cp -r ""$mycw_path"my_chipwhisperer_sw" "$pkg_path"
+mv ""$pkg_path"my_chipwhisperer_sw" ""$pkg_path"chipwhisperer" && echo "Successfully updated chipwhisperer package."
+
