@@ -35,6 +35,6 @@ echo
 
 echo "Removing old chipwhisperer package..."
 rm -r ""$pkg_path"chipwhisperer" && echo "Removed."
-cp -r ""$mycw_path"my_chipwhisperer_sw" "$pkg_path"
-mv ""$pkg_path"my_chipwhisperer_sw" ""$pkg_path"chipwhisperer" && echo "Successfully updated chipwhisperer package."
+cp -r ""$mycw_path"our_cw_software" "$pkg_path"
+mv ""$pkg_path"our_cw_software" ""$pkg_path"chipwhisperer" && echo "Successfully updated chipwhisperer package."
 
