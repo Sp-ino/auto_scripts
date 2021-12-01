@@ -33,8 +33,8 @@ case $arg in
 	echo "mydrive <option> <arguments>"
 	echo
 	echo "-h, --help 						Print this help message and exit."
-	echo "-d, --download <remote_name>				Download <remote_name>."
-	echo "-u, --upload <local_name> <remote_folder>		Upload <local_name> into <remote_folder>."
+	echo "-d, --download <remote_file_name>				Download <remote_file_name>."
+	echo "-u, --upload <local_file_name> <remote_folder>		Upload <local_file_name> into <remote_folder>."
 	echo "-fu, --folderupdate <local_folder> <remote_folder>	Update the content of <remote_folder> by uploading/updating from <local_folder>."
 	echo "-fd, --folderdownload <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder>. Files that already exist locally are not downloaded."
 	echo "-fo, --folderoverwrite <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder> and overwrite files that already exist locally."
@@ -48,8 +48,8 @@ case $arg in
 		echo "Error. Wrong number of arguments."
 		exit
 	fi
-	file_name="$2"
-	gdrive download query "name='$file_name'"							#download the file by using download query
+	remote_file_name="$2"
+	gdrive download query "name='$remote_file_name'"							#download the file by using download query
 	;;
 
 
@@ -59,11 +59,11 @@ case $arg in
 		echo "Error. Wrong number of arguments."
 		exit
 	fi
-	file_name="$2"
+	local_file_name="$2"
 	remote_folder="$3"
 	info=$(gdrive list --query "name='$remote_folder' and trashed=false" | grep " $remote_folder ")	#get ID of the remote folder to which the file must be uploaded
 	remote_folder_ID="${info:0:33}"
-	gdrive upload -p "$remote_folder_ID" "$file_name"						#upload by using upload -p (option -p allows to choose parent directory)
+	gdrive upload -p "$remote_folder_ID" "$local_file_name"						#upload by using upload -p (option -p allows to choose parent directory)
 	;;
 
 
@@ -79,16 +79,16 @@ case $arg in
 	remote_folder_ID=${info:0:33}
 	cd $local_folder										#move to the local folder from which files must be uploaded
 	files=`ls`
-	for file_name in $files										#examine files in the local folder one by one
+	for local_file_name in $files										#examine files in the local folder one by one
 		do
-		remote_file_info=$(gdrive list --query "name='$file_name' and trashed=false and '$remote_folder_ID' in parents" | grep " $file_name ")	#verify whether there is a remote file with the same name as the local file
+		remote_file_info=$(gdrive list --query "name='$local_file_name' and trashed=false and '$remote_folder_ID' in parents" | grep " $local_file_name ")	#verify whether there is a remote file with the same name as the local file
 		remote_file_ID=${remote_file_info:0:33}
 		if [ -z $remote_file_ID ]
 		then
-			gdrive upload -p $remote_folder_ID $file_name					#if there are no results (i.e. remote_file_ID is unset) then upload the local file into the remote directory
+			gdrive upload -p $remote_folder_ID $local_file_name					#if there are no results (i.e. remote_file_ID is unset) then upload the local file into the remote directory
 		else
 			gdrive delete $remote_file_ID							#if there is already a remote file with the same name, delete it
-			gdrive upload -p $remote_folder_ID $file_name					#and upload again
+			gdrive upload -p $remote_folder_ID $local_file_name					#and upload again
 		fi
 	done
 	;;
@@ -118,20 +118,20 @@ case $arg in
 			exist_flag=false								#exist_flag is used to memorize whether a file already exists in the remote folder
 			line=${remote_content_array[$scan]}
 			line_array=($line)								#extract remote file ID from remote_content_array
-			file_ID=${line_array[0]}							#extract name of the remote file from remote_content_array
-			file_name=${line_array[1]}
-			for local_name in $local_content						#with a for loop check whether a file called file_name exists in the local directory
+			remote_file_ID=${line_array[0]}							#extract name of the remote file from remote_content_array
+			remote_file_name=${line_array[1]}
+			for local_file_name in $local_content						#with a for loop check whether a file called file_name exists in the local directory
 			do
-				if [ $local_name = $file_name ]
+				if [ $local_file_name = $remote_file_name ]
 				then
 					exist_flag=true							#if it exists, set exist_flag to true, otherwise leave its value to false
 				fi
 			done
 			if [ $exist_flag = false ]
 			then
-				gdrive download $file_ID						#if exist_flag is false then download the file
+				gdrive download $remote_file_ID						#if exist_flag is false then download the file
 			else
-				echo ""$local_name" already existing, use -fo option to overwrite existing files."	#otherwise print a warning message and do not download
+				echo ""$remote_file_name" already existing, use -fo option to overwrite existing files."	#otherwise print a warning message and do not download
 			fi
 		fi
 	done
@@ -161,8 +161,8 @@ case $arg in
 	echo "mydrive <option> <arguments>"
 	echo
 	echo "-h, --help 						Print this help message and exit."
-	echo "-d, --download <remote_name>				Download <remote_name>."
-	echo "-u, --upload <local_name> <remote_folder>			Upload <local_name> into <remote_folder>."
+	echo "-d, --download <remote_file_name>				Download <remote_file_name>."
+	echo "-u, --upload <local_file_name> <remote_folder>		Upload <local_file_name> into <remote_folder>."
 	echo "-fu, --folderupdate <local_folder> <remote_folder>	Update the content of <remote_folder> by uploading/updating from <local_folder>."
 	echo "-fd, --folderdownload <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder>. Files that already exist locally are not downloaded."
 	echo "-fo, --folderoverwrite <remote_folder> <local_folder>	Download the content of <remote_folder> into <local_folder> and overwrite files that already exist locally."
