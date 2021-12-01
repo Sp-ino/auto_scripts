@@ -131,7 +131,7 @@ case $arg in
 			then
 				gdrive download $file_ID						#if exist_flag is false then download the file
 			else
-				echo "File already existing, use -fo option to overwrite existing files."	#otherwise print a warning message and do not download
+				echo ""$local_name" already existing, use -fo option to overwrite existing files."	#otherwise print a warning message and do not download
 			fi
 		fi
 	done
