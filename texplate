@@ -1,0 +1,71 @@
+#!/bin/bash
+
+
+
+nargs=$#
+
+if [ $nargs -ne 1 ]
+then
+	echo "Error. Wrong number of arguments."
+	exit
+fi
+
+file_name = $1
+
+echo "\documentclass{article}
+\usepackage[T1]{fontenc} % codifica dei font                   
+\usepackage[utf8]{inputenc} % lettere accentate da tastiera
+\usepackage[italian]{babel}                                 
+\usepackage{amsmath} %per varie cose di matematica
+\usepackage{amssymb} %per varie cose di matematica
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{epstopdf}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage[acronym,smallcaps]{glossaries}
+\usepackage{quoting}
+\quotingsetup{font=small}
+\usepackage[autostyle,italian=guillemets]{csquotes}
+\usepackage[bibstyle=numeric-comp, citestyle=ieee, backend=biber]{biblatex}
+\usepackage[output-decimal-marker={,}]{siunitx}
+%\pagestyle{empty} %se non si vogliono le pagine numerate
+
+\addbibresource{/home/spino/latex/Docs/mybib.bib}
+
+\makeglossaries
+\newacronym{adc}{ADC}{convertitore da analogico a digitale}
+\newacronym{dac}{DAC}{convertitore da digitale ad analogico}
+\newacronym{cdac}{CDAC}{DAC capacitivo}
+\newacronym{sar}{SAR}{\textit{successive approximation register}}
+\newacronym{icmr}{ICMR}{\textit{input common mode range}}
+\newacronym{iot}{IoT}{\textit{internet of things}}
+\newacronym{sndr}{SNDR}{\textit{signal to noise and distortion ratio}}
+\newacronym{msb}{MSB}{bit più significativo}
+\newacronym{lsb}{LSB}{bit meno significativo}
+\newacronym{dff}{FF}{\textit{flip-flop} di tipo D}
+\newacronym{dft}{DTFT}{trasformata di Fourier tempo-discreta}
+\newacronym{inl}{INL}{non linearità integrale}
+\newacronym{dnl}{DNL}{non linearità differenziale}
+\newacronym{nmos}{NMOS}{dispositivo MOS a canale N}
+\newacronym{pmos}{PMOS}{dispositivo MOS a canale P}
+\newacronym{thd}{THD}{distorsione armonica totale}
+\newacronym{hd3}{HD3}{distorsione di terza armonica}
+\newacronym{sfdr}{SFDR}{\textit{spourious free dynamic range}}
+\newacronym{nu}{nu}{not used}
+
+%\setacronymstyle{long-short}
+%\loadglsentries{{C:/Users/spino/Documents/UNIVERSITA/LaTeX/Docs/acronyms}
+
+\newcommand{\micron}{\micro \text{m}}
+\newcommand{\microw}{\micro \text{W}}
+\newcommand{\microv}{\micro \text{V}}
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newenvironment{sistema} {\left\lbrace\begin{array}{@{}l@{}}} {\end{array}\right.}
+
+\begin{document}
+	
+\end{document}" >> $file_name
