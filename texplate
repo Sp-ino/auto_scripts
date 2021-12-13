@@ -10,7 +10,7 @@ then
 	exit
 fi
 
-file_name = $1
+file_name=$1
 
 echo "\documentclass{article}
 \usepackage[T1]{fontenc} % codifica dei font                   
