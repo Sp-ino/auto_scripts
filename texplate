@@ -2,17 +2,33 @@
 
 
 
+#######################################################################
+#
+# Author: spino
+#
+# This script generates the template for a LaTeX file. 
+#
+#######################################################################
+
+
+
+#set default values
+docclass="article"
+
+
 nargs=$#
 
-if [ $nargs -ne 1 ]
+if [ $nargs -ne 2 ]
 then
 	echo "Error. Wrong number of arguments."
 	exit
 fi
 
 file_name=$1
+title=$2
 
-echo "\documentclass{article}
+
+echo "\documentclass{"$docclass"}
 \usepackage[T1]{fontenc} % codifica dei font                   
 \usepackage[utf8]{inputenc} % lettere accentate da tastiera
 \usepackage[italian]{babel}                                 
@@ -66,6 +82,24 @@ echo "\documentclass{article}
 \newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
 \newenvironment{sistema} {\left\lbrace\begin{array}{@{}l@{}}} {\end{array}\right.}
 
+\title{"$title"}
+
+%Figure template:
+%
+%begin{figure} [htp]
+%\centering
+%\includegraphics[height=0.42\textheight, width=0.8\textwidth]{figures/}
+%\caption{}
+%\label{}
+%\end{figure}
+
+
+
 \begin{document}
-	
+
+\maketitle
+\newpage
+
+\section{}
+
 \end{document}" >> $file_name
