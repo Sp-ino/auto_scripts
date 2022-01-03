@@ -36,8 +36,8 @@ echo "\documentclass{"$docclass"}
 \usepackage{amssymb} %per varie cose di matematica
 \usepackage{amsthm}
 \usepackage{mathrsfs}
-\usepackage{epstopdf}
 \usepackage{graphicx}
+\usepackage{epstopdf}
 \usepackage{booktabs}
 \usepackage{microtype}
 \usepackage{float}
