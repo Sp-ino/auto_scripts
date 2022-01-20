@@ -1,46 +1,4 @@
-#!/bin/bash
-
-
-
-#######################################################################
-#
-# Author: spino
-#
-# This script generates the template for a LaTeX file. 
-#
-#######################################################################
-
-
-
-#set default values
-docclass="article"
-
-
-nargs=$#
-
-if [ $nargs -ne 2 ]
-then
-	if [ $nargs -eq 1 ] && [ $1 == "-h" ]
-	then
-		echo
-		echo "Generates template for a latex file."
-		echo
-		echo "USAGE:"
-		echo "texplate [FILE NAME] [TITLE]"
-		echo
-		echo "The file name should include .tex extension."
-		exit
-	fi
-
-	echo "Error. Wrong number of arguments."
-	exit
-fi
-
-file_name=$1
-title=$2
-
-
-echo "\documentclass{"$docclass"}
+\documentclass{article}
 \usepackage[T1]{fontenc} % codifica dei font                   
 \usepackage[utf8]{inputenc} % lettere accentate da tastiera
 \usepackage[italian]{babel}                                 
@@ -94,7 +52,7 @@ echo "\documentclass{"$docclass"}
 \newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
 \newenvironment{sistema} {\left\lbrace\begin{array}{@{}l@{}}} {\end{array}\right.}
 
-\title{"$title"}
+\title{titolo}
 \author{Valerio Spinogatti}
 
 %Figure template:
@@ -114,15 +72,15 @@ echo "\documentclass{"$docclass"}
 %	\label{}
 %	\begin{tabular}{lcc}
 %		\toprule
-%		Dispositivo	&  W [$\micron$]\\
+%		Dispositivo	&  W [$\micron$]\
 %		\midrule
-%		1		&			\\
-%		2		&			\\
-%		3		&			\\
-%		4		&			\\
-%		5		&			\\
-%		6		&			\\
-%		7		&			\\
+%		1		&			\
+%		2		&			\
+%		3		&			\
+%		4		&			\
+%		5		&			\
+%		6		&			\
+%		7		&			\
 %		\bottomrule
 %	\end{tabular}
 %\end{table}}
@@ -136,4 +94,4 @@ echo "\documentclass{"$docclass"}
 
 \section{}
 
-\end{document}" >> $file_name
+\end{document}
