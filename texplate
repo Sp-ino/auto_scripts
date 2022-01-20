@@ -99,7 +99,7 @@ echo "\documentclass{"$docclass"}
 
 %Figure template:
 %
-%begin{figure} [htp]
+%\begin{figure} [htp]
 %\centering
 %\includegraphics[height=0.42\textheight, width=0.8\textwidth]{figures/}
 %\caption{}
