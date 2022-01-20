@@ -20,6 +20,18 @@ nargs=$#
 
 if [ $nargs -ne 2 ]
 then
+	if [ $nargs -eq 1 ] && [ $1 == "-h" ]
+	then
+		echo
+		echo "Generates template for a latex file."
+		echo
+		echo "USAGE:"
+		echo "texplate [FILE NAME] [TITLE]"
+		echo
+		echo "The file name should include .tex extension."
+		exit
+	fi
+
 	echo "Error. Wrong number of arguments."
 	exit
 fi
@@ -83,6 +95,7 @@ echo "\documentclass{"$docclass"}
 \newenvironment{sistema} {\left\lbrace\begin{array}{@{}l@{}}} {\end{array}\right.}
 
 \title{"$title"}
+\author{Valerio Spinogatti}
 
 %Figure template:
 %
@@ -92,6 +105,27 @@ echo "\documentclass{"$docclass"}
 %\caption{}
 %\label{}
 %\end{figure}
+
+%Table template:
+%
+%\begin{table}[htp]
+%	\centering
+%	\caption{}
+%	\label{}
+%	\begin{tabular}{lcc}
+%		\toprule
+%		Dispositivo	&  W [$\micron$]\\
+%		\midrule
+%		1		&			\\
+%		2		&			\\
+%		3		&			\\
+%		4		&			\\
+%		5		&			\\
+%		6		&			\\
+%		7		&			\\
+%		\bottomrule
+%	\end{tabular}
+%\end{table}}
 
 
 
