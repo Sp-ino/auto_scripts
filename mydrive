@@ -73,10 +73,11 @@ case $arg in
 		exit
 	fi
 	local_file_name="$2"
+	local_file_basename=`basename $local_file_name`
 	remote_folder="$3"
 	info=$(gdrive list --query "name='$remote_folder' and trashed=false" | grep " $remote_folder ")	#get ID of the remote folder to which the file must be uploaded
 	remote_folder_ID="${info:0:33}"
-	remote_file_info=$(gdrive list --query "name='$local_file_name' and trashed=false and '$remote_folder_ID' in parents" | grep " $local_file_name ")	#verify whether there is a remote file with the same name as the local file
+	remote_file_info=$(gdrive list --query "name='$local_file_basename' and trashed=false and '$remote_folder_ID' in parents" | grep " $local_file_basename ")	#verify whether there is a remote file with the same name as the local file
 	remote_file_ID=${remote_file_info:0:33}
 	if [ -z $remote_file_ID ]
 		then
