@@ -61,7 +61,7 @@ case $arg in
 		exit
 	fi
 	remote_file_name=$2
-	gdrive download query -f "name='$remote_file_name'"						#download by using download query with the -f option, which forces gdrive to overwrite the local file
+	gdrive download query -f "name='$remote_file_name' and trashed=false"						#download by using download query with the -f option, which forces gdrive to overwrite the local file
 	;;
 
 
