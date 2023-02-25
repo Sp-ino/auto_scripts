@@ -8,6 +8,7 @@ fi
 
 
 arg=$1
+repo_path="/home/spino/code/bash/auto_scripts"
 
 
 
@@ -16,7 +17,7 @@ case $arg in
 
 	-h|--help)										#help option
 	echo
-	echo "This script updates my bash scripts."
+	echo "This script updates my bash scripts"
 	echo
 	echo "Usage:"
 	echo "scrupd <option> <argument>"
@@ -29,8 +30,8 @@ case $arg in
 
 
 	-a|--update-all)									#update all option
-	scripts=`ls /home/spino/MyCode/Bash`
-	cd /home/spino/MyCode/Bash
+	scripts=`ls "$repo_path"`
+	cd $repo_path
 	sudo install $scripts /usr/local/bin && echo "The scripts were successfully updated." || echo "Update failed."
 	;;
 
@@ -41,7 +42,7 @@ case $arg in
 		echo "Error. Missing argument."
 	fi
 	script_name=$2
-	sudo install /home/spino/MyCode/Bash/"$script_name" /usr/local/bin && echo "$script_name was successfully updated." || echo "Update failed."
+	sudo install "$repo_path"/"$script_name" /usr/local/bin && echo "$script_name was successfully updated." || echo "Update failed."
 	;;
 
 
