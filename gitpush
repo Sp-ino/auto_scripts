@@ -41,7 +41,7 @@ case $arg in
 	        exit
 	fi
 	branch_name=$2
-	file=(`cat /home/spino/.mygitconfig`)
+	file=(`cat /home/"$USER"/.mygitconfig`)
 	token=${file[0]}								#extract token from file
 	expect /usr/local/bin/gitpush_and_answer.exp $branch_name $token		#call expect script by passing branch name and token to it.
 											#The expect script calls git push -b <branchname> and then passes user name and token when prompted

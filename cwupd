@@ -10,9 +10,9 @@
 ##################################################################
 
 
-bckp_path="/home/spino/.cwbackup/"				#backup path
-pkg_path="/home/spino/.local/lib/python3.9/site-packages/"	#cw package path
-mycw_path="/home/spino/PhD/MISE/"				#working directory path
+bckp_path="/home/"$USER"/.cwbackup/"				#backup path
+pkg_path="/home/"$USER"/.local/lib/python3.9/site-packages/"	#cw package path
+mycw_path="/home/"$USER"/PhD/MISE/"				#working directory path
 
 
 content=`ls "$bckp_path" | grep cw_sw_backup`

@@ -49,25 +49,25 @@ case $arg in
 		schem)
 		info=$(gdrive list --query "name='Schematici' and trashed=false" | grep " Schematici ")
 		dirID=${info:0:33}
-		gdrive sync upload /home/spino/PhD/Schematici $dirID
+		gdrive sync upload /home/"$USER"/PhD/Schematici $dirID
 		;;
 
 		mat)
 		info=$(gdrive list --query "name='Materiale' and trashed=false" | grep " Materiale ")
                 dirID=${info:0:33}
-                gdrive sync upload /home/spino/PhD/Materiale $dirID
+                gdrive sync upload /home/"$USER"/PhD/Materiale $dirID
 		;;
 
 		csv)
 		info=$(gdrive list --query "name='CSV' and trashed=false" | grep " CSV ")
 		dirID=${info:0:33}
-		gdrive sync upload /home/spino/PhD/CSV $dirID
+		gdrive sync upload /home/"$USER"/PhD/CSV $dirID
 		;;
 
 		lav)
 		info=$(gdrive list --query "name='Lavori' and trashed=false" | grep " Lavori ")
 		dirID=${info:0:33}
-		gdrive sync upload /home/spino/PhD/Lavori $dirID
+		gdrive sync upload /home/"$USER"/PhD/Lavori $dirID
 		;;
 
 		*)
@@ -90,25 +90,25 @@ case $arg in
 		schem)
 		info=$(gdrive list --query "name='Schematici' and trashed=false" | grep " Schematici ")
 		dirID=${info:0:33}
-		gdrive sync download $dirID /home/spino/PhD/Schematici
+		gdrive sync download $dirID /home/"$USER"/PhD/Schematici
 		;;
 
 		mat)
 		info=$(gdrive list --query "name='Materiale' and trashed=false" | grep " Materiale ")
 	        dirID=${info:0:33}
-                gdrive sync download $dirID /home/spino/PhD/Materiale
+                gdrive sync download $dirID /home/"$USER"/PhD/Materiale
 		;;
 
 		csv)
 		info=$(gdrive list --query "name='CSV' and trashed=false" | grep " CSV ")
 		dirID=${info:0:33}
-		gdrive sync download $dirID /home/spino/PhD/CSV
+		gdrive sync download $dirID /home/"$USER"/PhD/CSV
 		;;
 
 		lav)
 		info=$(gdrive list --query "name='Lavori' and trashed=false" | grep " Lavori ")
 		dirID=${info:0:33}
-		gdrive sync download $dirID /home/spino/PhD/Lavori
+		gdrive sync download $dirID /home/"$USER"/PhD/Lavori
 		;;
 
 		*)

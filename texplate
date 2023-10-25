@@ -62,7 +62,7 @@ echo -E "\documentclass{"$docclass"}
 \usepackage[output-decimal-marker={,}]{siunitx}
 %\pagestyle{empty} %se non si vogliono le pagine numerate
 
-\addbibresource{/home/spino/latex/Docs/mybib.bib}
+\addbibresource{/home/"$USER"/latex/Docs/mybib.bib}
 
 \makeglossaries
 \newacronym{adc}{ADC}{convertitore da analogico a digitale}

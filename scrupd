@@ -8,7 +8,7 @@ fi
 
 
 arg=$1
-repo_path="/home/spino/code/bash/auto_scripts"
+repo_path="/home/"$USER"/code/bash/auto_scripts"
 
 
 
