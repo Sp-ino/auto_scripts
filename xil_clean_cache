@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm *.jou *.vivado *.htm *.slxc *.log
+rm *.jou *.vivado *.htm *.slxc *.log *.str slprj/
