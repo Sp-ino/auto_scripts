@@ -43,7 +43,7 @@ title=$2
 echo -E "\documentclass{"$docclass"}
 \usepackage[T1]{fontenc} % codifica dei font                   
 \usepackage[utf8]{inputenc} % lettere accentate da tastiera
-\usepackage[italian]{babel}                                 
+\usepackage{babel}                                 
 \usepackage{amsmath} %per varie cose di matematica
 \usepackage{amssymb} %per varie cose di matematica
 \usepackage{amsthm}
@@ -54,10 +54,10 @@ echo -E "\documentclass{"$docclass"}
 \usepackage{microtype}
 \usepackage{float}
 \usepackage{multirow}
-\usepackage[acronym,smallcaps]{glossaries}
+\usepackage[acronym]{glossaries}
 \usepackage{quoting}
 \quotingsetup{font=small}
-\usepackage[autostyle,italian=guillemets]{csquotes}
+\usepackage{csquotes}
 \usepackage[bibstyle=numeric-comp, citestyle=ieee, backend=biber]{biblatex}
 \usepackage[output-decimal-marker={,}]{siunitx}
 %\pagestyle{empty} %se non si vogliono le pagine numerate
