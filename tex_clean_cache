@@ -1,0 +1,14 @@
+#!/bin/bash
+
+rm *.run.xml
+rm *.acn
+rm *.aux
+rm *.bbl
+rm *.blg
+rm *.synctex.gz
+rm *.glo
+rm *.bcf
+rm *.dvi
+rm *.ist
+rm *.toc
+rm *.log
